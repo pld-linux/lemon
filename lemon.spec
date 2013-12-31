@@ -1,7 +1,8 @@
-# TODO: coin, cplex, soplex support
+# TODO: coin, soplex support
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static libraries
+%bcond_with	cplex		# CPLEX support [IBM proprietary]
 %bcond_without	glpk		# GLPK support
 #
 Summary:	Library of Efficient Models and Optimization in Networks
@@ -91,6 +92,7 @@ Dokumentacja API biblioteki LEMON.
 %configure \
 	--enable-shared \
 	%{!?with_static_libs:--disable-static} \
+	%{!?with_cplex:--without-cplex} \
 	%{!?with_glpk:--without-glpk}
 %{__make}
 
