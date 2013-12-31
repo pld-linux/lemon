@@ -1,9 +1,10 @@
-# TODO: coin, soplex support
+# TODO: coin support
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static libraries
 %bcond_with	cplex		# CPLEX support [IBM proprietary]
 %bcond_without	glpk		# GLPK support
+%bcond_with	soplex		# SoPlex support
 #
 Summary:	Library of Efficient Models and Optimization in Networks
 Summary(pl.UTF-8):	Biblioteka wydajnych modeli i optymalizacji w sieciach
@@ -24,6 +25,7 @@ BuildRequires:	ghostscript
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	python
+%{?with_soplex:BuildRequires:	soplex-devel}
 %{?with_glpk:Requires:	glpk >= 4.33}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -49,6 +51,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %{?with_glpk:Requires:	glpk-devel >= 4.33}
 Requires:	libstdc++-devel
+%{?with_soplex:Requires:	soplex-devel}
 
 %description devel
 Header files for LEMON library.
@@ -93,7 +96,10 @@ Dokumentacja API biblioteki LEMON.
 	--enable-shared \
 	%{!?with_static_libs:--disable-static} \
 	%{!?with_cplex:--without-cplex} \
-	%{!?with_glpk:--without-glpk}
+	%{!?with_glpk:--without-glpk} \
+	%{!?with_soplex:--without-soplex} \
+	%{?with_soplex:--with-soplex-includedir=/usr/include/soplex}
+
 %{__make}
 
 %install
