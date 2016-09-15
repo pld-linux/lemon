@@ -1,9 +1,10 @@
 # TODO: coin support
 #
 # Conditional build:
-%bcond_with	cplex		# CPLEX support [IBM proprietary]
-%bcond_without	glpk		# GLPK support
-%bcond_with	soplex		# SoPlex support
+%bcond_with	coin		# COIN solver backend
+%bcond_with	cplex		# ILOG (CPLEX) solver backend [IBM proprietary]
+%bcond_without	glpk		# GLPK solver backend
+%bcond_with	soplex		# SoPlex solver backend
 #
 Summary:	Library of Efficient Models and Optimization in Networks
 Summary(pl.UTF-8):	Biblioteka wydajnych modeli i optymalizacji w sieciach
@@ -15,6 +16,16 @@ Group:		Libraries
 Source0:	http://lemon.cs.elte.hu/pub/sources/%{name}-%{version}.tar.gz
 # Source0-md5:	e89f887559113b68657eca67cf3329b5
 URL:		http://lemon.cs.elte.hu/
+%if %{with coin}
+BuildRequires:	CoinCbc-devel
+BuildRequires:	CoinCbcSolver-devel
+BuildRequires:	CoinCgl-devel
+BuildRequires:	CoinClp-devel
+BuildRequires:	CoinOsi-devel
+BuildRequires:	CoinOsiCbc-devel
+BuildRequires:	CoinOsiClp-devel
+BuildRequires:	CoinUtils-devel
+%endif
 BuildRequires:	cmake >= 2.8
 BuildRequires:	doxygen
 BuildRequires:	ghostscript
