@@ -15,6 +15,7 @@ License:	Boost v1.0
 Group:		Libraries
 Source0:	http://lemon.cs.elte.hu/pub/sources/%{name}-%{version}.tar.gz
 # Source0-md5:	e89f887559113b68657eca67cf3329b5
+Patch0:		%{name}-libdir.patch
 URL:		http://lemon.cs.elte.hu/
 %if %{with coin}
 BuildRequires:	CoinCbc-devel
@@ -78,6 +79,7 @@ Dokumentacja API biblioteki LEMON.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 install -d build
